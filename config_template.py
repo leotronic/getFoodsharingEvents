@@ -6,7 +6,7 @@ personal getDates.py config file
 # don't forget to rename this file to config.py after editing it for the first time
 
 # put in here your email adress used to login to foodsharing.de
-email_adress = 'my@dre.ss'
+email_adress = ''
 
 # put in here your password used to login to foodsharing.de
 # /!\ this is saved in clear text  /!\ 
