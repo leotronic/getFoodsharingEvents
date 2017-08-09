@@ -44,7 +44,6 @@ This data is the used to create events
 
 /!\ Your login credentials are stored in plain text in config.py  /!\  
 
-by Leo Schiel, leonard.schiel@rwth-aachen.de
 """
 
 
