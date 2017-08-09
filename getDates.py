@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 script for fetching foodsaving dates/locations from foodsharing.de
-and create events for the users Google Calendar.
+and creating events for the users Google Calendar.
 
 these files have to be in the same Folder:
 - getDates.py 
