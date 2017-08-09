@@ -21,7 +21,7 @@ from oauth2client import tools
 from oauth2client.file import Storage
 
 
-# set locale time category to german so the parser undstands the german names of months and weekdays
+# set locale time category to german so the parser understands the german names of months and weekdays
 locale.setlocale(locale.LC_TIME, 'de_DE.UTF-8')
 
 try:
@@ -84,17 +84,17 @@ def makeEvent(timeString, location):
         timeString = timeString.replace('Morgen', (datetime.date.today() + datetime.timedelta(1)).strftime('%A, %d. %b'))
     
     # parse a time String like 'Donnerstag, 10. Aug, 16:00 Uhr' and set the year
-    time = datetime.datetime.strptime(timeString,'%A, %d. %b, %H:%M Uhr').replace(config.THISYEAR)
+    time = datetime.datetime.strptime(timeString,'%A, %d. %b, %H:%M Uhr').replace(config.thisYear)
         
     event = {
-        'summary': 'Abholung ' + location,
-        'colorId' : '10',
+        'summary': config.summaryFormat.format(location),
+        'colorId' : config.colorId,
         'start': {
             'dateTime': time.isoformat() + '+02:00',
             'timeZone': 'Europe/Berlin',
         },
         'end': {
-            'dateTime': (time + datetime.timedelta(0,0,0,0,config.DELTAMINUTES)).isoformat() + '+02:00',
+            'dateTime': (time + datetime.timedelta(0,0,0,0,config.deltaMinutes)).isoformat() + '+02:00',
             'timeZone': 'Europe/Berlin',
         },
     }

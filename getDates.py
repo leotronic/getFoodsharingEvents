@@ -87,6 +87,8 @@ for row in soup.find_all("ul", "datelist linklist"):
 # the dates.splitlines string has empty entries, get rid of them    
 datelist = list(filter(None, dates.splitlines()))
 
+# for every two entries of datelist print the time and location
 for i in range(int(len(datelist)/2)):
     print(str(i+1) + '. Abholung: ' + datelist[2*i] + ' bei ' + datelist[2*i+1])
+    # makeDate.main(timeString, location):
     makeDate.main(datelist[2*i], datelist[2*i+1])
