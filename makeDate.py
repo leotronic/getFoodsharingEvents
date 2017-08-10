@@ -1,4 +1,5 @@
 """
+helper script for getDates.py. Only use this script from the CLI for testing purposes.
 this script uses the Google Calendar API
 
 Python as well as your Google Account have to be set up for this.
@@ -54,7 +55,7 @@ def get_credentials():
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,
-                                   'calendar-python-quickstart.json')
+                                   'calendar-python-makeDate.json')
 
     store = Storage(credential_path)
     credentials = store.get()
@@ -103,11 +104,14 @@ def makeEvent(timeString, location):
 
     
         
-def main(timeString, location):
+def main(timeString = None, location = None):
     """uses the Google Calendar API to create foodsaving events given
     with the timeString and location parameters.
     """
     credentials = get_credentials()
+    if timeString == None:
+        return
+    
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
 
@@ -115,11 +119,17 @@ def main(timeString, location):
     newEvent = makeEvent(timeString, location)
     newStart = newEvent['start'].get('dateTime', newEvent['start'].get('date'))
         
-    # ask Google for events with 'Abholung' in its summary
+    # ask Google for events with the first word (.split(' ', 1)[0]) of 
+    # config.summaryFormat in its summary
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
     eventsResult = service.events().list(
-        calendarId='primary', timeMin=now, maxResults=50, singleEvents=True,
-        orderBy='startTime', q='Abholung').execute()
+        calendarId='primary', 
+        timeMin=now, 
+        maxResults=50, 
+        singleEvents=True,
+        orderBy='startTime', 
+        q=(config.summaryFormat).split(' ', 1)[0]
+        ).execute()
     events = eventsResult.get('items', [])
     
     # check if one of these events is already our newEvent
@@ -139,8 +149,6 @@ def main(timeString, location):
         print(newEvent['summary'] + ' am ' + newStart + ', Abholung eingetragen (+)')
 
 # this script normally receives its data from getDates.py
+# this here is only used once for the verification process or for testing
 if __name__ == '__main__':
-    if len(sys.argv) <= 1:
-        main('Heute, 16:00 Uhr', '+++Testbetrieb+++')
-    else:
-        main(sys.argv[0], sys.argv[1])
+    main()
