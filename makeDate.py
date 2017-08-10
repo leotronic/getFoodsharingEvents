@@ -1,7 +1,13 @@
 """
-helper script for getDates.py. Only use this script from the CLI for testing purposes.
-this script uses the Google Calendar API
+helper script for getDates.py. 
 
+Only use this script from the CLI for testing purposes or to validate it 
+for your Google Calendar. If you have problems validating (it wants to 
+set up a temporary webserver at localhost:8080) try running
+python3 makeDate.py --noauth_local_webserver   
+
+
+this script uses the Google Calendar API
 Python as well as your Google Account have to be set up for this.
 To do this, you can look at
 https://developers.google.com/google-apps/calendar/quickstart/python

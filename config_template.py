@@ -29,4 +29,4 @@ colorId = '10'
 thisYear = 2017
 
 # only print the new event to screen instead of creating a event in the calendar for testing purposes 
-testmode = True #False
+testmode = False
