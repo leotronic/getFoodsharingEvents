@@ -107,8 +107,15 @@ for row in soup.find_all("ul", "datelist linklist"):
 # the dates.splitlines string has empty entries, get rid of them    
 datelist = list(filter(None, dates.splitlines()))
 
-# for every two entries of datelist print the time and location
-for i in range(int(len(datelist)/2)):
-    print(str(i+1) + '. Abholung: ' + datelist[2*i] + ' bei ' + datelist[2*i+1])
-    # makeDate.main(timeString, location):
-    makeDate.main(datelist[2*i], datelist[2*i+1])
+# write the eventlist into a text file
+#   this can be used to print your events on the desktop using conky with
+#   ${execi 10000 cat /path/to/foodsharing_events.txt}
+#os.system("rm foodsharing_events.txt")
+with open("foodsharing_events.txt", 'w') as fp:
+
+    # for every two entries of datelist print the time and location
+    for i in range(int(len(datelist)/2)):
+        print(str(i+1) + '. Abholung: ' + datelist[2*i] + ' bei ' + datelist[2*i+1])
+        fp.write(datelist[2*i] + ' bei ' + datelist[2*i+1] + '\n')
+        # makeDate.main(timeString, location):
+        makeDate.main(datelist[2*i], datelist[2*i+1])
